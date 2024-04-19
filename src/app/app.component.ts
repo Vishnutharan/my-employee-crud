@@ -27,7 +27,9 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     // Load employees data when the component initializes
-    this.getemployees();
+    // This method is called by Angular when the component is initialized.
+    // It's used here to trigger the loading of employees data or perform any other initialization tasks related to employees.
+    this.getemployees();  // Call the method to fetch employees data or perform initialization
   }
 
   // Fetches employees data from the service
