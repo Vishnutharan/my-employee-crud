@@ -1,65 +1,72 @@
 <div class="container mt-5">
     <div class="card">
-        <div class="card-header">
-            Employee
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="cards">
-                        <div class="card-header">
-                            Create
-                        </div>
-                        <div class="card-body">
-                            <div class="card-body">
-                                <form [formGroup]="EmployeeFormgroup" (ngSubmit)="onSubmit()">
-                                    <div class="row">
-                                        <div class="col-sm-12 mbt-2">
-                                            <label>Name</label>
-                                            <input type="text" formControlName="name" class="form-control" />
-                                        </div>
-                                        <div class="col-sm-12 mbt-2">
-                                            <label>Mobile Number</label>
-                                            <input type="text" formControlName="mobileNumber" class="form-control" />
-                                        </div>
-                                        <div class="col-sm-12 mbt-2">
-                                            <label>Email ID</label>
-                                            <input type="text" formControlName="emailID" class="form-control" />
-                                        </div>
-                                        <div class="col-sm-12 mbt-4">
-                                            <button class="btn btn-primary" type="submit">Create</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            
-                        </div>
+      <div class="card-header">
+        Employee
+      </div>
+      <div class="card-body">
+        <!-- Employee Creation Form -->
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="cards">
+              <div class="card-header">
+                Create
+              </div>
+              <div class="card-body">
+                <form [formGroup]="EmployeeFormgroup" (ngSubmit)="onSubmit()">
+                  <div class="row">
+                    <!-- Name Input -->
+                    <div class="col-sm-12 mbt-2">
+                      <label>Name</label>
+                      <input type="text" formControlName="name" class="form-control" />
                     </div>
-                </div>
-                <div class="col-sm-6">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <td> Name</td>
-                                <td>Mobile Number</td>
-                                <td>Email ID</td>
-                                <td>Action</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let emp of employees">
-                                <td>{{ emp.name }}</td>
-                                <td>{{ emp.mobileNumber }}</td>
-                                <td>{{ emp.emailID }}</td>
-                                <td>
-                                    <button (click)="Fillform(emp)" class="btn btn-link">Edit</button>
-                                    <button (click) ="DeleteEmp(emp.id)" class="btn btn-link">Delete</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                    <!-- Mobile Number Input -->
+                    <div class="col-sm-12 mbt-2">
+                      <label>Mobile Number</label>
+                      <input type="text" formControlName="mobileNumber" class="form-control" />
+                    </div>
+                    <!-- Email ID Input -->
+                    <div class="col-sm-12 mbt-2">
+                      <label>Email ID</label>
+                      <input type="text" formControlName="emailID" class="form-control" />
+                    </div>
+                    <!-- Submit Button -->
+                    <div class="col-sm-12 mbt-4">
+                      <button class="btn btn-primary" type="submit">Create</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
             </div>
+          </div>
+  
+          <!-- Employee Table -->
+          <div class="col-sm-6">
+            <table class="table">
+              <thead>
+                <tr>
+                  <td>Name</td>
+                  <td>Mobile Number</td>
+                  <td>Email ID</td>
+                  <td>Action</td>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Loop through employees -->
+                <tr *ngFor="let emp of employees">
+                  <td>{{ emp.name }}</td>
+                  <td>{{ emp.mobileNumber }}</td>
+                  <td>{{ emp.emailID }}</td>
+                  <td>
+                    <!-- Edit and Delete buttons -->
+                    <button (click)="Fillform(emp)" class="btn btn-link">Edit</button>
+                    <button (click)="DeleteEmp(emp.id)" class="btn btn-link">Delete</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
+      </div>
     </div>
-</div>
+  </div>
+  
