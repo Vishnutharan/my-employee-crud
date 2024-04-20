@@ -24,7 +24,11 @@ export class EmployeeService {
    * @returns An Observable of the created Employee object.
    */
   createEmployee(emp: Employee): Observable<Employee> {
-    emp.id = "000000000000000"; // Assuming ID is set to a default value for creation.
+    // Assuming ID is set to a default value for creation.
+    emp.id = "000000000000000";
+    
+    // Send a POST request to the API endpoint to create the employee.
+    // The API expects an Employee object and returns an Employee object as well.
     return this.httpclient.post<Employee>(this.baseurl, emp);
   }
 
@@ -34,6 +38,8 @@ export class EmployeeService {
    * @returns An Observable of the updated Employee object.
    */
   updateEmployee(emp: Employee): Observable<Employee> {
+    // Send a PUT request to the API endpoint to update the employee.
+    // The API expects an Employee object with updated data and returns the updated Employee object.
     return this.httpclient.put<Employee>(this.baseurl + '/' + emp.id, emp);
   }
 
@@ -43,6 +49,9 @@ export class EmployeeService {
    * @returns An Observable of the deleted Employee object.
    */
   DeleteEmployee(id: string): Observable<Employee> {
+    // Send a DELETE request to the API endpoint to delete the employee by ID.
+    // The API returns the deleted Employee object.
     return this.httpclient.delete<Employee>(this.baseurl + '/' + id);
   }
+
 }
