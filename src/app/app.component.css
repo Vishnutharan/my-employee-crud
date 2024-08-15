@@ -1,0 +1,38 @@
+.card-header {
+    background: linear-gradient(45deg, #6a11cb, #2575fc);
+    color: white;
+    animation: slideIn 1s ease-out;
+  }
+
+  .card-body {
+    background: #f5f7fa;
+    animation: fadeIn 2s ease-in;
+  }
+
+  .btn-success, .btn-primary, .btn-danger {
+    transition: transform 0.2s;
+  }
+
+  .btn-success:hover, .btn-primary:hover, .btn-danger:hover {
+    transform: scale(1.1);
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }

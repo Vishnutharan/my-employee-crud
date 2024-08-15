@@ -8,7 +8,7 @@ import { Employee } from '../models/employee';
 })
 export class EmployeeService {
   constructor(private httpclient: HttpClient) { }
-  baseurl = "http://localhost:5185/api/Employee"
+  baseurl = "https://localhost:7223/api/Employee";
 
   /**
    * Retrieves a list of employees from the API.
@@ -25,7 +25,7 @@ export class EmployeeService {
    */
   createEmployee(emp: Employee): Observable<Employee> {
     // Assuming ID is set to a default value for creation.
-    emp.id = "000000000000000";
+    // emp.id = "000000000000000";
     
     // Send a POST request to the API endpoint to create the employee.
     // The API expects an Employee object and returns an Employee object as well.

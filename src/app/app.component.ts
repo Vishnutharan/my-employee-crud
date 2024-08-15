@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from './service/employee.service';
 import { Employee } from './models/employee';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -18,17 +18,16 @@ export class AppComponent implements OnInit {
   ) {
     // Initialize the form group for employee data
     this.EmployeeFormgroup = this.fb.group({
-      id: [""],
-      name: [""],
-      mobileNumber: [""],
-      emailID: [""]
+      id: [null],
+      name: ['', Validators.required],
+      mobileNumber: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
+      emailID: ['', [Validators.required, Validators.email]],
+      enp: ['', Validators.required] // Add the enp field with validation
     });
   }
 
   ngOnInit(): void {
     // Load employees data when the component initializes
-    // This method is called by Angular when the component is initialized.
-    // It's used here to trigger the loading of employees data or perform any other initialization tasks related to employees.
     this.getemployees();  // Call the method to fetch employees data or perform initialization
   }
 
@@ -42,31 +41,40 @@ export class AppComponent implements OnInit {
 
   // Handles form submission for creating or updating an employee
   onSubmit() {
-    console.log(this.EmployeeFormgroup.value);
-    if (this.EmployeeFormgroup.value.id != null && this.EmployeeFormgroup.value.id != "") {
+    const employeeData = this.EmployeeFormgroup.value;
+    console.log(employeeData);
+
+    if (employeeData.id) {
       // Update existing employee
-      this.employeeService.updateEmployee(this.EmployeeFormgroup.value).subscribe(response => {
-        console.log(response);
-        this.getemployees();
-        this.EmployeeFormgroup.setValue({
-          id: "",
-          name: "",
-          mobileNumber: "",
-          emailID: "",
-        });
-      });
+      this.employeeService.updateEmployee(employeeData).subscribe(
+        response => {
+          console.log(response);
+          this.getemployees();
+          this.EmployeeFormgroup.reset();
+        },
+        error => {
+          console.error('Error updating employee:', error);
+          if (error.status === 400 && error.error.errors) {
+            console.error('Validation errors:', error.error.errors);
+          }
+        }
+      );
     } else {
       // Create new employee
-      this.employeeService.createEmployee(this.EmployeeFormgroup.value).subscribe(response => {
-        console.log(response);
-        this.getemployees();
-        this.EmployeeFormgroup.setValue({
-          id: "",
-          name: "",
-          mobileNumber: "",
-          emailID: "",
-        });
-      });
+      const { id, ...newEmployeeData } = employeeData; // Exclude id for new employees
+      this.employeeService.createEmployee(newEmployeeData).subscribe(
+        response => {
+          console.log(response);
+          this.getemployees();
+          this.EmployeeFormgroup.reset();
+        },
+        error => {
+          console.error('Error creating employee:', error);
+          if (error.status === 400 && error.error.errors) {
+            console.error('Validation errors:', error.error.errors);
+          }
+        }
+      );
     }
   }
 
@@ -77,13 +85,15 @@ export class AppComponent implements OnInit {
       name: emp.name,
       mobileNumber: emp.mobileNumber,
       emailID: emp.emailID,
+      enp: emp.enp || '' // Ensure enp is set, default to empty string if not provided
     });
   }
 
   // Deletes an employee
   DeleteEmp(id: string) {
     this.employeeService.DeleteEmployee(id).subscribe(Res => {
-      console.log(Res)
+      console.log(Res);
+      this.getemployees();
     });
   }
 }
